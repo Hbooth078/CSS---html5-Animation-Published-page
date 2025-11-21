@@ -1,141 +1,123 @@
-/* ==============================
-   GENERAL PAGE STYLES
-================================*/
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    color: #333;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+  background-color: #f9f9f9;
 }
 
-section {
-    padding: 40px;
-    text-align: center;
+/* Navigation Bar */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  padding: 0;
+  margin-bottom: 2rem;
 }
 
-/* ==============================
-   SECTION 1: NAVIGATION BAR EFFECT
-================================*/
-.navbar {
-    background: #222;
-    padding: 15px 0;
+.nav-menu a {
+  position: relative;
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  padding-bottom: 4px;
 }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    padding: 0;
-    margin: 0;
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0%;
+  background-color: #ff6f61;
+  transition: width 0.3s ease-in-out;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    position: relative;
-    padding-bottom: 5px;
+.nav-menu a:hover::after {
+  width: 100%;
 }
 
-/* Underline animation */
-.navbar a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0%;
-    height: 2px;
-    background: #ffcc00;
-    transition: width 0.3s ease;
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.navbar a:hover::after {
-    width: 100%;
+.grow-btn,
+.pulse-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
 
-/* ==============================
-   SECTION 2: BUTTON EFFECTS
-================================*/
-.buttons button {
-    padding: 12px 24px;
-    margin: 15px;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-}
-
-/* Grow on hover */
+/* Grow on Hover */
 .grow-btn {
-    background: #0077ff;
-    color: white;
-    transition: transform 0.3s ease;
+  background-color: #4caf50;
+  transition: transform 0.3s ease;
 }
 
 .grow-btn:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
-/* Pulsing Glow Button */
+/* Pulsing Glow */
 .pulse-btn {
-    background: #ff0066;
-    color: white;
-    animation: pulse 1.5s infinite;
+  background-color: #ff4081;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-    0% {
-        box-shadow: 0 0 5px rgba(255, 0, 102, 0.6);
-    }
-    50% {
-        box-shadow: 0 0 20px rgba(255, 0, 102, 1);
-    }
-    100% {
-        box-shadow: 0 0 5px rgba(255, 0, 102, 0.6);
-    }
+  0% {
+    box-shadow: 0 0 0px #ff4081;
+  }
+  50% {
+    box-shadow: 0 0 20px #ff4081;
+  }
+  100% {
+    box-shadow: 0 0 0px #ff4081;
+  }
 }
 
-/* ==============================
-   SECTION 3: TEXT ANIMATION
-================================*/
-.fade-in-text {
-    opacity: 0;
-    animation: fadeIn 2s forwards;
+/* Text Animation */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ==============================
-   SECTION 4: SPRITE ANIMATION
-================================*/
-.sprite-section {
-    text-align: center;
+/* Sprite Animation */
+.sprite-animation {
+  margin-top: 2rem;
 }
 
-.sprite {
-    width: 150px; /* Adjust per sprite frame width */
-    height: 150px; /* Adjust per sprite frame height */
-    background: url('7966228.jpg') left center;
-    animation: bunnyRun 1s steps(6) infinite;
+.rabbit {
+  width: 100px;
+  height: 100px;
+  background-image: url('7966228.jpg');
+  background-repeat: no-repeat;
+  animation: hop 1s steps(6) infinite;
 }
 
-/* Animate background-position to create frame-by-frame effect */
-@keyframes bunnyRun {
-    from {
-        background-position: 0px;
-    }
-    to {
-        background-position: -900px; /* 6 frames × 150px width */
-    }
+@keyframes hop {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 0;
+  }
 }
