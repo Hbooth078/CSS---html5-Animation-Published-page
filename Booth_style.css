@@ -1,0 +1,141 @@
+/* ==============================
+   GENERAL PAGE STYLES
+================================*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+section {
+    padding: 40px;
+    text-align: center;
+}
+
+/* ==============================
+   SECTION 1: NAVIGATION BAR EFFECT
+================================*/
+.navbar {
+    background: #222;
+    padding: 15px 0;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+/* Underline animation */
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: #ffcc00;
+    transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ==============================
+   SECTION 2: BUTTON EFFECTS
+================================*/
+.buttons button {
+    padding: 12px 24px;
+    margin: 15px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+/* Grow on hover */
+.grow-btn {
+    background: #0077ff;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.grow-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Pulsing Glow Button */
+.pulse-btn {
+    background: #ff0066;
+    color: white;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 0, 102, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 0, 102, 1);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 0, 102, 0.6);
+    }
+}
+
+/* ==============================
+   SECTION 3: TEXT ANIMATION
+================================*/
+.fade-in-text {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==============================
+   SECTION 4: SPRITE ANIMATION
+================================*/
+.sprite-section {
+    text-align: center;
+}
+
+.sprite {
+    width: 150px; /* Adjust per sprite frame width */
+    height: 150px; /* Adjust per sprite frame height */
+    background: url('7966228.jpg') left center;
+    animation: bunnyRun 1s steps(6) infinite;
+}
+
+/* Animate background-position to create frame-by-frame effect */
+@keyframes bunnyRun {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -900px; /* 6 frames × 150px width */
+    }
+}
