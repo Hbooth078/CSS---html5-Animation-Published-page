@@ -126,7 +126,7 @@ section {
 .sprite {
     width: 150px; /* Adjust per sprite frame width */
     height: 150px; /* Adjust per sprite frame height */
-    background: url('7966228.jpg') left center;
+    background: url('ChatGPT Image Nov 10, 2025, 11_09_22 AM.png') left center;
     animation: bunnyRun 1s steps(6) infinite;
 }
 
