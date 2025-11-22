@@ -81,7 +81,7 @@ body {
   width: 100px;   /* width of one frame */
   height: 100px;  /* height of one frame */
   margin: 40px auto;
-  background: url("image.jpg") left center;
+  background: url("7966228.jpg") left center;
   animation: runSprite 1s steps(6) infinite; /* adjust steps to # of frames */
 }
 @keyframes runSprite {
