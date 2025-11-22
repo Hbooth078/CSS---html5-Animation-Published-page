@@ -1,70 +1,125 @@
-/* Use the local path you uploaded as the sprite URL */
-:root{
-  --sprite-url: url("/mnt/data/7966228.jpg");
-}
-
-/* stage centers the sprite and gives some grass background for context */
+/* GENERAL PAGE STYLE */
 body {
-  margin: 0;
-  height: 100vh;
-  display: grid;
-  place-items: center;
-  background: #2e7d21; /* simple green backdrop */
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    font-family: Arial, sans-serif;
+    background: #111827;
+    color: white;
+    padding: 20px;
 }
 
-/* size the visible frame to match roughly one frame of the sprite.
-   The original image is 2048x1365 with a 3x2 arrangement, so each frame ~ 682.7 x 682.5 px.
-   We choose 684x684 for a clean square display. Adjust if you want different scale. */
-.stage {
-  width: 684px;
-  height: 684px;
-  display: grid;
-  place-items: center;
-  background: rgba(0,0,0,0.05);
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2) inset;
+h1, h2 {
+    text-align: center;
 }
 
-/* the sprite element displays only one frame of the sprite sheet;
-   animation steps switch the background-position to show each frame */
-.bunny-sprite{
-  width: 684px;
-  height: 684px;
-  background-image: var(--sprite-url);
-  /* scale the background so the 3x2 frames exactly fill the element:
-     300% width = 3 columns, 200% height = 2 rows */
-  background-size: 300% 200%;
-  background-repeat: no-repeat;
-  /* show the first frame initially */
-  background-position: 0px 0px;
-  /* optional outline so you can see frame bounds while testing */
-  /* outline: 1px dashed rgba(255,255,255,0.06); */
+/* ---------------------------------------------------
+   SECTION 1: NAVIGATION BAR (Underline Transition)
+--------------------------------------------------- */
 
-  /* play the 6-frame animation in a loop */
-  animation: hop 0.9s steps(1) infinite;
-  /* steps(1) is irrelevant because we're using keyframe stops; left for clarity */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 10px;
 }
 
-/* Compute exact background-position pixel offsets for each frame.
-   Original image size: 2048 x 1365 (3 columns x 2 rows)
-   single frame width = 2048 / 3 = 682.6666667
-   single frame height = 1365 / 2 = 682.5
-   We use exact pixel offsets (negative) to pick each frame precisely. */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    font-size: 20px;
+}
 
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 3px;
+    background: #38bdf8;
+    transition: width 0.4s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ---------------------------------------------------
+   SECTION 2: BUTTON EFFECTS
+--------------------------------------------------- */
+
+#button-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+button {
+    padding: 15px 25px;
+    margin: 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Grow on Hover */
+.grow-btn {
+    background: #22d3ee;
+    transition: transform 0.3s ease;
+}
+.grow-btn:hover {
+    transform: scale(1.2);
+}
+
+/* Pulsing Glow Using Keyframes */
+.pulse-btn {
+    background: #f472b6;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px #f472b6; }
+    50% { box-shadow: 0 0 30px #f472b6; }
+    100% { box-shadow: 0 0 10px #f472b6; }
+}
+
+/* ---------------------------------------------------
+   SECTION 3: TEXT ANIMATION (Fade + Slide)
+--------------------------------------------------- */
+
+.animate-text {
+    opacity: 0;
+    animation: slideFade 1.8s forwards ease-out;
+}
+
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+/* ---------------------------------------------------
+   SECTION 4: SPRITE ANIMATION (Rabbit)
+--------------------------------------------------- */
+
+.sprite {
+    width: 684px;     /* 2048 / 3 */
+    height: 682px;    /* 1365 / 2 */
+    margin: 40px auto;
+
+    background-image: url("/mnt/data/7966228.jpg");
+    background-size: 300% 200%; /* 3x2 sprite sheet */
+    background-repeat: no-repeat;
+
+    animation: hop 0.9s steps(6) infinite;
+}
+
+/* Cycle through 6 frames */
 @keyframes hop {
-  /* Frame 1: top-left */
-  0%   { background-position:   0px            0px; }
-  /* Frame 2: top-middle */
-  16.666% { background-position:  -682.6666667px  0px; }
-  /* Frame 3: top-right */
-  33.333% { background-position:  -1365.3333334px 0px; }
-  /* Frame 4: bottom-left */
-  50%   { background-position:   0px           -682.5px; }
-  /* Frame 5: bottom-middle */
-  66.666% { background-position:  -682.6666667px -682.5px; }
-  /* Frame 6: bottom-right */
-  83.333% { background-position:  -1365.3333334px -682.5px; }
-  /* Return to frame 1 */
-  100% { background-position:   0px            0px; }
+    from { background-position: 0 0; }
+    to   { background-position: -2048px -1365px; }
 }
