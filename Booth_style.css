@@ -1,90 +1,70 @@
-/* General Reset */
+/* Use the local path you uploaded as the sprite URL */
+:root{
+  --sprite-url: url("/mnt/data/7966228.jpg");
+}
+
+/* stage centers the sprite and gives some grass background for context */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
   margin: 0;
-  padding: 0;
-  background: #f0f0f0;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #2e7d21; /* simple green backdrop */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* Navigation Bar */
-.nav-bar {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  background: #333;
-  padding: 10px;
-}
-.nav-bar li {
-  margin: 0 20px;
-}
-.nav-bar a {
-  color: white;
-  text-decoration: none;
-  position: relative;
-}
-.nav-bar a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0%;
-  height: 2px;
-  background: #ff4081;
-  transition: width 0.3s ease;
-}
-.nav-bar a:hover::after {
-  width: 100%;
+/* size the visible frame to match roughly one frame of the sprite.
+   The original image is 2048x1365 with a 3x2 arrangement, so each frame ~ 682.7 x 682.5 px.
+   We choose 684x684 for a clean square display. Adjust if you want different scale. */
+.stage {
+  width: 684px;
+  height: 684px;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2) inset;
 }
 
-/* Buttons */
-.buttons {
-  margin: 30px;
-}
-.grow-btn {
-  padding: 10px 20px;
-  margin: 10px;
-  transition: transform 0.3s ease;
-}
-.grow-btn:hover {
-  transform: scale(1.2);
-}
-.glow-btn {
-  padding: 10px 20px;
-  margin: 10px;
-  animation: glow 2s infinite alternate;
-}
-@keyframes glow {
-  from {
-    box-shadow: 0 0 5px #ff4081;
-  }
-  to {
-    box-shadow: 0 0 20px #ff4081;
-  }
+/* the sprite element displays only one frame of the sprite sheet;
+   animation steps switch the background-position to show each frame */
+.bunny-sprite{
+  width: 684px;
+  height: 684px;
+  background-image: var(--sprite-url);
+  /* scale the background so the 3x2 frames exactly fill the element:
+     300% width = 3 columns, 200% height = 2 rows */
+  background-size: 300% 200%;
+  background-repeat: no-repeat;
+  /* show the first frame initially */
+  background-position: 0px 0px;
+  /* optional outline so you can see frame bounds while testing */
+  /* outline: 1px dashed rgba(255,255,255,0.06); */
+
+  /* play the 6-frame animation in a loop */
+  animation: hop 0.9s steps(1) infinite;
+  /* steps(1) is irrelevant because we're using keyframe stops; left for clarity */
 }
 
-/* Text Animation */
-.fade-in-text {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 2s forwards;
-}
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Compute exact background-position pixel offsets for each frame.
+   Original image size: 2048 x 1365 (3 columns x 2 rows)
+   single frame width = 2048 / 3 = 682.6666667
+   single frame height = 1365 / 2 = 682.5
+   We use exact pixel offsets (negative) to pick each frame precisely. */
 
-/* Sprite Animation */
-.sprite {
-  width: 100px;   /* width of one frame */
-  height: 100px;  /* height of one frame */
-  margin: 40px auto;
-  background: url("7966228.jpg") left center;
-  animation: runSprite 1s steps(6) infinite; /* adjust steps to # of frames */
-}
-@keyframes runSprite {
-  from { background-position: 0 0; }
-  to { background-position: -600px 0; } /* width * frames */
+@keyframes hop {
+  /* Frame 1: top-left */
+  0%   { background-position:   0px            0px; }
+  /* Frame 2: top-middle */
+  16.666% { background-position:  -682.6666667px  0px; }
+  /* Frame 3: top-right */
+  33.333% { background-position:  -1365.3333334px 0px; }
+  /* Frame 4: bottom-left */
+  50%   { background-position:   0px           -682.5px; }
+  /* Frame 5: bottom-middle */
+  66.666% { background-position:  -682.6666667px -682.5px; }
+  /* Frame 6: bottom-right */
+  83.333% { background-position:  -1365.3333334px -682.5px; }
+  /* Return to frame 1 */
+  100% { background-position:   0px            0px; }
 }
